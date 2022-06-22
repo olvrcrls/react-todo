@@ -6,6 +6,7 @@ import { useState } from 'react';
 function App() {
   /**
    * States
+   * const [getterVar, setterVar] = value
    */
   const [count, setCount] = useState(0);
 
