@@ -26,12 +26,32 @@ export default class AppClass extends Component {
         };
     }
 
+    addTodo = (event) => {
+        this.setState(prevState => {
+            event.preventDefault();
+
+            // if (todoInput.trim().length === 0) return;
+
+            const newTodos = [...prevState.todos, {
+                    id: 4,
+                    title: 'This is class based components',
+                    isComplete: false
+                }
+            ];
+
+            // setTodoInput('');
+            // setIdForTodo((prevIdForTodo) => prevIdForTodo + 1);
+
+            return { todos: newTodos }
+        });
+    }
+
     render() {
         return (
             <div className="todo-app-container">
                 <div className="todo-app">
                     <h2>Todo App</h2>
-                    <form action="#">
+                    <form action="#" onSubmit={ this.addTodo }>
                     <input
                         type="text"
                         className="todo-input"
@@ -42,7 +62,7 @@ export default class AppClass extends Component {
                     <ul className="todo-list">
                         { 
                         this.state.todos.map((todo, index) => {
-                            return <li className="todo-item-container">
+                            return <li key={todo.id} className="todo-item-container">
                                 <div className="todo-item">
                                 <input type="checkbox"/>
                                 <span className="todo-item-label">{ todo.title }</span>
