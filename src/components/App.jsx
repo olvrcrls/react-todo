@@ -26,28 +26,56 @@ function App() {
         }
     ]);
 
+    const [todoInput, setTodoInput] = useState('');
+    const [idForTodo, setIdForTodo] = useState(todos.length + 1);
+
+    let addTodo = (event) => {
+        event.preventDefault();
+        if (todoInput.trim().length === 0) return;
+
+        setTodos([...todos, {
+                id: idForTodo,
+                title: todoInput,
+                isComplete: false
+            }
+        ]);
+
+        setTodoInput('');
+        setIdForTodo((prevIdForTodo) => prevIdForTodo + 1);
+    }
+
+    let deleteTodo = (todoId) => {
+        setTodos([...todos].filter(todo => todo.id !== todoId ));
+    }
+
+    let handleInput = (event) => {
+        setTodoInput(event.target.value);
+    }
+
     return (
         <div className="todo-app-container">
             <div className="todo-app">
                 <h2>Todo App</h2>
-                <form action="#">
+                <form action="#" onSubmit={ addTodo }>
                 <input
                     type="text"
                     className="todo-input"
                     placeholder="What do you need to do?"
+                    value={ todoInput }
+                    onChange={ handleInput }
                 />
                 </form>
 
                 <ul className="todo-list">
                     { 
-                    todos.map((todo, index) => {
-                        return <li className="todo-item-container">
+                    todos.map((todo, index) => (
+                        <li key={ todo.id } className="todo-item-container">
                             <div className="todo-item">
                             <input type="checkbox"/>
                             <span className="todo-item-label">{ todo.title }</span>
                             {/* <input type="text" className="todo-item-input" value="Finish React Series" /> */}
                             </div>
-                            <button className="x-button">
+                            <button className="x-button" onClick={ () => deleteTodo(todo.id) }>
                             <svg
                                 className="x-button-icon"
                                 fill="none"
@@ -63,7 +91,7 @@ function App() {
                             </svg>
                             </button>
                         </li>
-                        })
+                        ))
                     }
                 </ul>
 
