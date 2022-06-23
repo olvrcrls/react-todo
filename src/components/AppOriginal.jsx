@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Another from './Another';
+import Another from '../Another';
 import { useState } from 'react';
 
 function App() {
